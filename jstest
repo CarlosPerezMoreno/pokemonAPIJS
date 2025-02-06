@@ -1,0 +1,36 @@
+document.getElementById("searchButton").addEventListener("click", function () {
+    //Create a constant and store the data from the pokemonInput. You need to get the value and pass it toLowerCase. 
+
+    //Create a constant and store the data of pokemonDisplay
+
+
+    // Clear previous content
+    pokemonDisplay.innerHTML = "";
+
+    // Fetch Pokémon data from the API
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonInput}`)
+        .then(response => {
+            //Create an if conditional statement that checks response is not okay to throw an error.
+
+                throw new Error("Pokémon not found!");
+
+            return response.json();
+        })
+        .then(data => {
+            // Display Pokémon sprite and name
+            const pokemonSprite = data.sprites.front_default;
+            const pokemonName = data.name;
+
+            pokemonDisplay.innerHTML = `
+
+            `;
+        })
+        .catch(error => {
+            // Handle errors (e.g., Pokémon not found)
+            pokemonDisplay.innerHTML = `<p style="color: red;">${error.message}</p>`;
+        });
+});
+
+//Here you have the data that you will add to the HTML to print the Pokemon. Can you guess where do you need to put it?
+<img src="${pokemonSprite}" alt="${pokemonName}">
+<p>${pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1)}</p>
