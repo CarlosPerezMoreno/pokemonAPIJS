@@ -1,19 +1,19 @@
 document.getElementById("searchButton").addEventListener("click", function () {
     //Create a constant and store the data from the pokemonInput. You need to get the value and pass it toLowerCase. 
-
+     const pokemonInput = document.getElementById("pokemonInput").value.toLowerCase();
     //Create a constant and store the data of pokemonDisplay
-
+    const pokemonDisplay = document.getElementById("pokemonDisplay");
 
     // Clear previous content
     pokemonDisplay.innerHTML = "";
 
     // Fetch Pokémon data from the API
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonInput}`)
+  fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonInput}`)
         .then(response => {
             //Create an if conditional statement that checks response is not okay to throw an error.
-
+          if(!response.ok){
                 throw new Error("Pokémon not found!");
-
+          }
             return response.json();
         })
         .then(data => {
@@ -21,9 +21,8 @@ document.getElementById("searchButton").addEventListener("click", function () {
             const pokemonSprite = data.sprites.front_default;
             const pokemonName = data.name;
 
-            pokemonDisplay.innerHTML = `
-
-            `;
+            pokemonDisplay.innerHTML = `<img src="${pokemonSprite}" alt="${pokemonName}">
+<p>${pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1)}</p>`;
         })
         .catch(error => {
             // Handle errors (e.g., Pokémon not found)
@@ -32,5 +31,4 @@ document.getElementById("searchButton").addEventListener("click", function () {
 });
 
 //Here you have the data that you will add to the HTML to print the Pokemon. Can you guess where do you need to put it?
-<img src="${pokemonSprite}" alt="${pokemonName}">
-<p>${pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1)}</p>
+
